@@ -1,6 +1,5 @@
 import uuid
 
-
 class User:
     def __init__(self, firstname, lastname, username, email):
         self.id = str(uuid.uuid4())
@@ -8,4 +7,5 @@ class User:
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
+        self.password_hashes = []
 
