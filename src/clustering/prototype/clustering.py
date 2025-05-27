@@ -12,12 +12,10 @@ def build_affinity_matrix(students: list[Student]) -> np.ndarray:
         for rank, preferred in enumerate(student.preferences):
             if preferred in students:
                 j = students.index(preferred)
-                weight = max_points - rank  # Ex: 3 préférences → 3, 2, 1
+                weight = max_points - rank
                 matrix[i][j] = weight
 
     return matrix
-
-
 
 def generate_combinations(items: list, r: int) -> list[list]:
     """
@@ -45,39 +43,38 @@ def score_group(group_indices: list[int], affinity_matrix: np.ndarray) -> int:
                 score += affinity_matrix[i][j]
     return score
 
-def cluster_students(students: list[Student], group_size: int) -> list[list[Student]]:
-    """
-    """
-    affinity_matrix = build_affinity_matrix(students)
-    student_indices = list(range(len(students)))
-    group_sizes = compute_group_distribution(len(students), group_size)
-    ungrouped = student_indices[:]
-    groups = []
-
-    for size in group_sizes:
-        best_group = []
-        best_score = -1
-        possible_groups = generate_combinations(ungrouped, size)
-
-        for group in possible_groups:
-            score = score_group(group, affinity_matrix)
-            if score > best_score:
-                best_score = score
-                best_group = group
-
-        groups.append([students[i] for i in best_group])
-        for i in best_group:
-            ungrouped.remove(i)
-
-    return groups
-
-
-
-def compute_group_distribution(total_students: int, group_size: int) -> list[int]:
+def compute_balanced_group_sizes(total: int, group_size: int) -> list[int]:
     """
     """
     for r in range(group_size):
-        g = (total_students - r * (group_size - 1)) // group_size
-        if g * group_size + r * (group_size - 1) == total_students:
+        g = (total - r * (group_size - 1)) // group_size
+        if g * group_size + r * (group_size - 1) == total:
             return [group_size] * g + [group_size - 1] * r
-    raise ValueError("Unable to distribute students without creating a group of size 1.")
+    raise ValueError("Impossible to distribute students fairly without 1-sized group.")
+
+def cluster_students_greedy_balanced(students: list[Student], group_size: int) -> list[list[Student]]:
+    """
+    """
+    affinity_matrix = build_affinity_matrix(students)
+    total_students = len(students)
+    group_sizes = compute_balanced_group_sizes(total_students, group_size)
+
+    student_indices = list(range(total_students))
+    ungrouped = set(student_indices)
+    groups = []
+
+    for size in group_sizes:
+        best_index = max(
+            ungrouped,
+            key=lambda i: sum(affinity_matrix[i][j] + affinity_matrix[j][i] for j in ungrouped if j != i)
+        )
+
+        scores = [(j, affinity_matrix[best_index][j] + affinity_matrix[j][best_index])
+                  for j in ungrouped if j != best_index]
+        scores.sort(key=lambda x: x[1], reverse=True)
+
+        group = [best_index] + [j for j, _ in scores[:size - 1]]
+        groups.append([students[i] for i in group])
+        ungrouped -= set(group)
+
+    return groups

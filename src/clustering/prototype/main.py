@@ -1,7 +1,7 @@
 import argparse
 import random
 from student import Student
-from clustering import cluster_students, score_group, build_affinity_matrix
+import clustering
 
 first_names = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Hugo", "Ivy", "Jack", "Luna", "Mia", "Noah", "Olivia", "Paul", "Quinn", "Rose", "Sam", "Tina", "Ugo"]
 last_names = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Taylor", "Lee"]
@@ -30,16 +30,16 @@ def main():
 
     students = generate_students(n=args.students, max_preferences=args.max_prefs)
 
-    print(f"🧑‍🎓 {len(students)} étudiants générés.")
-    groups = cluster_students(students, args.group_size)
-    affinity_matrix = build_affinity_matrix(students)
+    print(f"{len(students)} étudiants générés.")
+    groups = clustering.cluster_students_greedy_balanced(students, args.group_size)
+    affinity_matrix = clustering.build_affinity_matrix(students)
 
     print("\n=== GROUPES FORMÉS ===")
     total_score = 0
 
     for i, group in enumerate(groups):
         group_indices = [students.index(s) for s in group]
-        score = score_group(group_indices, affinity_matrix)
+        score = clustering.score_group(group_indices, affinity_matrix)
         total_score += score
         print(f"Groupe {i+1}: {[str(s) for s in group]} | Score: {score}")
 
