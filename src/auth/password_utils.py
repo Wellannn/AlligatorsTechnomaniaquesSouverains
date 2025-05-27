@@ -1,6 +1,5 @@
 import hashlib
-import random
-import string 
+import random 
 
 
 generic_string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
