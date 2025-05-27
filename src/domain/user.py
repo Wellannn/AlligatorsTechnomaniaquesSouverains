@@ -1,4 +1,5 @@
 import uuid
+import hashlib
 
 
 class User:
@@ -8,4 +9,5 @@ class User:
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
+        self.password_hashes = []
 
