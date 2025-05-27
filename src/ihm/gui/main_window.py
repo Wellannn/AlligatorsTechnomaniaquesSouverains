@@ -19,6 +19,12 @@ class MainWindow:
         self.clear()
         self.current_view = LoginView(self.root, self)
     
+    def show_owner_views(self, username):
+        # switch to owner interface
+        self.clear()
+        from owner_views import OwnerViews
+        self.current_view = OwnerViews(self.root, self, username)
+    
     def show_student_views(self, username):
         # switch to student interface
         self.clear()

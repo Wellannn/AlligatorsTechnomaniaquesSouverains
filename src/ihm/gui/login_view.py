@@ -33,10 +33,12 @@ class LoginView:
         ttk.Button(btn_frame, text="New", command=self.new_user).pack(side=tk.LEFT, padx=5)
     
     def login(self):
-        # check if user is teacher or student
+        # check user type: owner, teacher or student
         # TODO: Call core authentication
         name = self.name_var.get()
-        if "teacher" in name.lower():
+        if "owner" in name.lower():
+            self.main_window.show_owner_views(name)
+        elif "teacher" in name.lower():
             self.main_window.show_teacher_views(name)
         else:
             self.main_window.show_student_views(name)
