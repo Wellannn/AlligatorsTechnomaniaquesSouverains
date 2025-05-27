@@ -1,100 +1,93 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from src.domain.vote import Vote
+from datetime import datetime, timedelta
+import random
 
 class TeacherViews:
     def __init__(self, parent, main_window, username):
-        self.parent = parent
         self.main_window = main_window
         self.username = username
-        self.setup_ui()
-    
-    def setup_ui(self):
-        # create header with teacher name and logout button
-        header = ttk.Frame(self.parent)
-        header.pack(fill=tk.X, padx=10, pady=5)
         
-        ttk.Label(header, text=f"Teacher: {self.username}", font=('Arial', 12, 'bold')).pack(side=tk.LEFT)
-        ttk.Button(header, text="Logout", command=self.main_window.show_login).pack(side=tk.RIGHT)
+        # Header
+        ttk.Label(parent, text=f"Teacher: {username}").pack(pady=10)
+        ttk.Button(parent, text="Logout", command=main_window.show_login).pack()
         
-        # create navigation buttons
-        nav = ttk.Frame(self.parent)
-        nav.pack(fill=tk.X, padx=10, pady=5)
+        # Create student
+        ttk.Label(parent, text="Create Student:").pack(pady=10)
         
-        ttk.Button(nav, text="Create Student", command=self.show_create).pack(side=tk.LEFT, padx=5)
-        ttk.Button(nav, text="Create Vote", command=self.show_create_vote).pack(side=tk.LEFT, padx=5)
-        ttk.Button(nav, text="Generate Groups", command=self.show_generate).pack(side=tk.LEFT, padx=5)
-        
-        self.content = ttk.Frame(self.parent)
-        self.content.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
-        
-        self.show_create()  # default view
-    
-    def clear_content(self):
-        for widget in self.content.winfo_children():
-            widget.destroy()
-    
-    def show_create(self):
-        self.clear_content()
-        ttk.Label(self.content, text="Create Student", font=('Arial', 12, 'bold')).pack(pady=10)
-        
-        ttk.Label(self.content, text="Name:").pack()
         self.name_var = tk.StringVar()
-        ttk.Entry(self.content, textvariable=self.name_var).pack(pady=5)
+        ttk.Entry(parent, textvariable=self.name_var, width=30).pack(pady=2)
+        ttk.Button(parent, text="Create", command=self.create_student).pack(pady=5)
         
-        ttk.Label(self.content, text="Last Name:").pack()
-        self.lastname_var = tk.StringVar()
-        ttk.Entry(self.content, textvariable=self.lastname_var).pack(pady=5)
+        # Create vote
+        ttk.Label(parent, text="Create Vote:").pack(pady=10)
         
-        ttk.Button(self.content, text="Generate Password", command=self.generate_pwd).pack(pady=5)
+        self.vote_title = tk.StringVar()
+        ttk.Entry(parent, textvariable=self.vote_title, width=30).pack(pady=2)
         
-        self.pwd_var = tk.StringVar()
-        ttk.Entry(self.content, textvariable=self.pwd_var, state='readonly').pack(pady=5)
+        self.group_size = tk.StringVar(value="3")
+        ttk.Entry(parent, textvariable=self.group_size, width=10).pack(pady=2)
         
-        ttk.Label(self.content, text="Status:").pack()
-        self.status_var = tk.StringVar(value="student")
-        ttk.Combobox(self.content, textvariable=self.status_var, 
-                    values=["student"]).pack(pady=5)
+        ttk.Button(parent, text="Create Vote", command=self.create_vote).pack(pady=5)
         
-        ttk.Button(self.content, text="Create", command=self.create_student).pack(pady=10)
-    
-    def show_create_vote(self):
-        self.clear_content()
-        ttk.Label(self.content, text="Create Vote", font=('Arial', 12, 'bold')).pack(pady=10)
+        # Generate groups
+        ttk.Button(parent, text="Generate Groups", command=self.generate_groups).pack(pady=20)
         
-        ttk.Label(self.content, text="Vote Name:").pack()
-        self.vote_name_var = tk.StringVar()
-        ttk.Entry(self.content, textvariable=self.vote_name_var).pack(pady=5)
-        
-        ttk.Label(self.content, text="Group Size:").pack()
-        self.group_size_var = tk.StringVar()
-        ttk.Entry(self.content, textvariable=self.group_size_var).pack(pady=5)
-        
-        ttk.Label(self.content, text="Add Students:").pack()
-        self.students_list = tk.Listbox(self.content, height=5)
-        self.students_list.pack(pady=5, fill=tk.X)
-        
-        ttk.Button(self.content, text="Add Teacher", command=self.add_teacher).pack(pady=5)
-        ttk.Button(self.content, text="Create Vote", command=self.create_vote).pack(pady=10)
-    
-    def show_generate(self):
-        self.clear_content()
-        ttk.Label(self.content, text="Generate Groups", font=('Arial', 12, 'bold')).pack(pady=10)
-        
-        ttk.Label(self.content, text="Same as Create Vote but with:").pack(pady=5)
-        ttk.Button(self.content, text="Generate Groups", command=self.generate_groups).pack(pady=20)
-    
-    def generate_pwd(self):
-        # generate temporary password
-        self.pwd_var.set("temp123")  # TODO: Generate real password
+        # Results
+        self.result_text = tk.Text(parent, height=8, state=tk.DISABLED)
+        self.result_text.pack(fill=tk.BOTH, expand=True, padx=20)
     
     def create_student(self):
-        messagebox.showinfo("Success", "Student created!")
-    
-    def add_teacher(self):
-        messagebox.showinfo("Info", "Teacher added to vote")
+        name = self.name_var.get()
+        if name:
+            password = self.main_window.auth_service.create_user(name, name, "Student", f"{name}@test.com", "student")
+            if password:
+                messagebox.showinfo("Success", f"Student created! Password: {password}")
+                self.name_var.set("")
     
     def create_vote(self):
-        messagebox.showinfo("Success", "Vote created!")
+        title = self.vote_title.get()
+        size = self.group_size.get()
+        
+        if title and size:
+            end_date = datetime.now() + timedelta(days=7)
+            vote = Vote(title, int(size), [], [self.username], end_date)
+            self.main_window.storage_service.create_vote(vote)
+            messagebox.showinfo("Success", "Vote created!")
+            self.vote_title.set("")
     
     def generate_groups(self):
+        # Get all votes
+        votes = self.main_window.storage_service.get_all_votes()
+        if not votes:
+            messagebox.showerror("Error", "No votes found")
+            return
+        
+        # Use first vote
+        vote_id, vote_data = list(votes.items())[0]
+        
+        # Get students
+        users = self.main_window.storage_service.get_all_users()
+        students = [u['username'] for u in users.values() if u.get('status') == 'student']
+        
+        if not students:
+            messagebox.showerror("Error", "No students found")
+            return
+        
+        # Simple random grouping
+        random.shuffle(students)
+        group_size = vote_data.get('group_size', 3)
+        groups = [students[i:i+group_size] for i in range(0, len(students), group_size)]
+        
+        # Save groups
+        self.main_window.storage_service.save_generated_group(vote_id, groups)
+        
+        # Display results
+        self.result_text.config(state=tk.NORMAL)
+        self.result_text.delete(1.0, tk.END)
+        for i, group in enumerate(groups, 1):
+            self.result_text.insert(tk.END, f"Group {i}: {', '.join(group)}\n")
+        self.result_text.config(state=tk.DISABLED)
+        
         messagebox.showinfo("Success", "Groups generated!")
