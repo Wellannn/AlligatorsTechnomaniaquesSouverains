@@ -80,26 +80,3 @@ class StorageJSON:
         if category in data and entry_id in data[category]:
             del data[category][entry_id]
             self._write(data)
-
-
-if __name__ == "__main__":
-    storage = StorageJSON('test_data.json')
-
-    from src.domain.student import Student
-    import uuid
-
-    # Test save_user and get_users
-    student = Student(username="testuser", email="test@example.com", status="student", firstname="Test", lastname="User")
-    storage.save_user(student.id, student.__dict__)
-    print("All users:", storage.get_users())
-
-    # Test get_user_by_username
-    user = storage.get_user_by_username("testuser")
-    print("User by username:", user)
-
-
-    # Test save_vote and get_votes
-    vote = Vote(title="vote 1", group_size=4, eligible_students=[student.id], teachers=[student.id], end_date= datetime.now())
-    storage.save_vote(vote.id, vote.__dict__)
-    print("All votes:", storage.get_votes())
-
