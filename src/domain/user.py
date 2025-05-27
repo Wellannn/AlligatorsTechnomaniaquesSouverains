@@ -1,7 +1,6 @@
 import uuid
 import hashlib
 
-
 class User:
     def __init__(self, firstname, lastname, username, email):
         self.id = str(uuid.uuid4())
