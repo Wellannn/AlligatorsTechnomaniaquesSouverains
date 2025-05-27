@@ -9,14 +9,18 @@ class Vote:
         eligible_students: List[str],
         teachers: List[str],
         end_date: datetime,
-        reliability_score: float
-    ):
+        reliability_score: float,
+        preference= None):
+
+        if preference is None:
+            preference = {}
         self.title = title
         self.group_size = group_size
         self.eligible_students = eligible_students
         self.teachers = teachers
         self.end_date = end_date
         self.reliability_score = reliability_score
+        self.preferennces = preference
 
     def is_active(self) -> bool:
         """Retourne True si la date actuelle est antérieure à la date de fin du vote."""
