@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 from typing import List
 
@@ -9,11 +10,14 @@ class Vote:
         eligible_students: List[str],
         teachers: List[str],
         end_date: datetime,
-        reliability_score: float,
+        reliability_score= None,
         preference= None):
 
         if preference is None:
             preference = {}
+        if reliability_score is None:
+            reliability_score = 0.0
+        self.id = str(uuid.uuid4())
         self.title = title
         self.group_size = group_size
         self.eligible_students = eligible_students
