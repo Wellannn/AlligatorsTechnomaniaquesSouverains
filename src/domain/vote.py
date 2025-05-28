@@ -3,20 +3,34 @@ from datetime import datetime
 from typing import List
 
 class Vote:
-    def __init__(
-        self,
-        title: str,
-        group_size: int,
-        eligible_students: List[str],
-        teachers: List[str],
-        end_date: datetime,
-        reliability_score= None,
-        preference= None):
+    """
+    Represents a vote for a group project.
+    Each vote has a unique identifier, a title, a group size, a list of eligible students, a list of teachers, an end date, a reliability score, and preferences.
+    """
+    def __init__(self,
+                title: str,
+                group_size: int,
+                eligible_students: List[str],
+                teachers: List[str],
+                end_date: datetime,
+                reliability_score: float = 0.0,
+                preference: dict = None) -> None:
+        """
+        Initializes a new vote with a title, group size, eligible students, teachers, end date, reliability score, and preferences.
+        Args:
+            title (str): The title of the vote.
+            group_size (int): The size of the group for the vote.
+            eligible_students (List[str]): A list of eligible students for the vote.
+            teachers (List[str]): A list of teachers associated with the vote.
+            end_date (datetime): The end date of the vote.
+            reliability_score (float, optional): The reliability score of the vote. Defaults to 0.0.
+            preference (dict, optional): A dictionary of preferences for the vote. Defaults to an empty dictionary.
+        Returns:
+            None
+        """
 
         if preference is None:
             preference = {}
-        if reliability_score is None:
-            reliability_score = 0.0
         self.id = str(uuid.uuid4())
         self.title = title
         self.group_size = group_size
@@ -27,14 +41,9 @@ class Vote:
         self.preferennces = preference
 
     def is_active(self) -> bool:
-        """Retourne True si la date actuelle est antérieure à la date de fin du vote."""
+        """
+        Checks if the vote is still active based on the current date and the end date of the vote.
+        Returns:
+            bool: True if the vote is still active, False otherwise.
+        """
         return datetime.now() < self.end_date
-
-    def display_info(self):
-        """Affiche les informations du vote."""
-        print(f"Vote: {self.title}")
-        print(f"Groupe de {self.group_size} personnes")
-        print(f"Étudiants éligibles: {len(self.eligible_students)}")
-        print(f"Enseignants: {', '.join(self.teachers)}")
-        print(f"Date de fin: {self.end_date}")
-        print(f"Score de fiabilité: {self.reliability_score}")
