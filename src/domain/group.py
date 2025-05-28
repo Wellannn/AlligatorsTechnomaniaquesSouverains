@@ -14,7 +14,7 @@ class Group:
             None
         """
         self.id = str(uuid.uuid4())
-        self.users = []
+        self.users: list[User] = []
 
     def add_user(self, user: User) -> None:
         """
@@ -53,4 +53,4 @@ class Group:
             str: A string representation of the group.
         """
         user_names = [user.username for user in self.users]
-        return f"Group({self.group_id}): {user_names}"
+        return f"Group({self.id}): {user_names}"

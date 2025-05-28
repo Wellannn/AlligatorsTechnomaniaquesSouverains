@@ -4,7 +4,8 @@ from src.domain.user import User
 from src.domain.student import Student
 from src.domain.teacher import Teacher
 from src.domain.owner import Owner
-import storage_service
+from src.service.storage_service import StorageService
+
 
 
 class AuthService:
@@ -12,7 +13,7 @@ class AuthService:
     Service responsible for user authentication and account management.
     """
 
-    def __init__(self, storage: storage_service.StorageService) -> None:
+    def __init__(self, storage: StorageService) -> None:
         """
         Initializes the authentication service with a given storage backend.
         Args:
