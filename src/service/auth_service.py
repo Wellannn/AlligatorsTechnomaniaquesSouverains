@@ -3,6 +3,7 @@ from src.domain.user import User
 from src.domain.student import Student
 from src.domain.teacher import Teacher
 from src.domain.owner import Owner
+import storage_service
 
 class AuthService:
     def __init__(self, storage):
@@ -20,7 +21,7 @@ class AuthService:
     
     def create_user(self, username, firstname, lastname, email, status):
         """Create a new user with generated password"""
-        if self.is_user_exist(username):
+        if self.storage.is_user_exist(username):
             return None
         
         password = generate_password()
@@ -48,14 +49,11 @@ class AuthService:
         if not self.login_user(username, old_password):
             return False
         
-        user_data = self.storage.get_user_by_username(username)
+        user = self.storage.get_user_by_username(username)
         new_hashed = hash_password(new_password)
-        user_data['password_hashes'].append(new_hashed)
+        user['password_hashes'].append(new_hashed)
         
         # Update user in storage
-        self.storage.save_user(user_data['id'], user_data)
+        self.storage.update_user(user)
         return True
     
-    def is_user_exist(self, username):
-        """Check if user exists"""
-        return self.storage.get_user_by_username(username) is not None
