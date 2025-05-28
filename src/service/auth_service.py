@@ -1,11 +1,11 @@
 from typing import Optional
+
 from src.auth.password_utils import Password
-from src.domain.user import User
+from src.domain.owner import Owner
 from src.domain.student import Student
 from src.domain.teacher import Teacher
-from src.domain.owner import Owner
+from src.service.storage_service import *
 from src.service.storage_service import StorageService
-
 
 
 class AuthService:
@@ -24,21 +24,22 @@ class AuthService:
         """
         self.storage = storage
 
-    def login_user(self, username: str, password: str) -> bool:
+    def login_user(self, username: str, password: str, access_key: str) -> bool:
         """
         Authenticates a user with their username and password.
         Args:
             username (str): The user's login identifier.
             password (str): The plain-text password to verify.
+            access_key (str): An access key for security.
         Returns:
             bool: True if credentials are valid, False otherwise.
         """
-        user_data = self.storage.get_user_by_username(username)
-        if not user_data:
+        user = self.storage.get_user_by_username(username)
+        if not user:
             return False
 
-        hashed_password = Password.hash_password(password)
-        return hashed_password in user_data.get('password_hashes', [])
+        hashed_password = Password.hash_password(password, access_key)
+        return hashed_password in user.get('password_hashes', [])
 
     def create_user(
         self,

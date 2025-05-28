@@ -29,9 +29,9 @@ class StorageService:
         Returns:
             bool: True if the user exists, False otherwise.
         """
-        return self.get_user(username) is not None
+        return self.get_user_by_username(username) is not None
 
-    def get_user(self, username: str) -> Optional[Dict[str, Any]]:
+    def get_user_by_username(self, username: str) -> Optional[Dict[str, Any]]:
         """
         Retrieves a user's data based on their username.
         Args:

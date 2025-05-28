@@ -1,1 +1,1 @@
-from .main_window import MainWindow
+from src.ihm.gui.main_window import MainWindow

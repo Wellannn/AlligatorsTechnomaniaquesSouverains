@@ -17,15 +17,20 @@ class LoginView:
         ttk.Label(frame, text="Password:").pack()
         self.password_var = tk.StringVar()
         ttk.Entry(frame, textvariable=self.password_var, show="*").pack(pady=5)
-        
+
+        ttk.Label(frame, text="Acces Key:").pack()
+        self.access_key = tk.StringVar()
+        ttk.Entry(frame, textvariable=self.password_var, show="*").pack(pady=5)
+
         ttk.Button(frame, text="Login", command=self.login).pack(pady=20)
     
     def login(self):
         username = self.username_var.get()
         password = self.password_var.get()
+        access_key = self.access_key.get()
         
-        if self.main_window.auth_service.login_user(username, password):
-            user = self.main_window.storage_service.get_user(username)
+        if self.main_window.auth_service.login_user(username, password, access_key):
+            user = self.main_window.storage_service.get_user_by_username(username)
             status = user.get('status', 'student')
             
             if status == "owner":

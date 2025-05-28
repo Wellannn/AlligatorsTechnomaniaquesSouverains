@@ -7,7 +7,7 @@ from src.storage.storage_json import StorageJSON
 class MainWindow:
     def __init__(self):
         self.storage_service = StorageService()
-        self.auth_service = AuthService(StorageJSON("data.json"))
+        self.auth_service = AuthService(storage=self.storage_service)
         
         self.root = tk.Tk()
         self.root.title("Clustering de Camarades")
