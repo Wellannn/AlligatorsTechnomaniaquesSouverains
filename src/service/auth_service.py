@@ -4,6 +4,7 @@ from src.auth.password_utils import Password
 from src.domain.owner import Owner
 from src.domain.student import Student
 from src.domain.teacher import Teacher
+from src.service import storage_service
 from src.service.storage_service import *
 from src.service.storage_service import StorageService
 
@@ -24,22 +25,28 @@ class AuthService:
         """
         self.storage = storage
 
-    def login_user(self, username: str, password: str, access_key: str) -> bool:
+    def login_user(self, username: str, password: str) -> str:
         """
         Authenticates a user with their username and password.
         Args:
             username (str): The user's login identifier.
             password (str): The plain-text password to verify.
-            access_key (str): An access key for security.
         Returns:
             bool: True if credentials are valid, False otherwise.
         """
-        user = self.storage.get_user_by_username(username)
+        user, status = self.storage.get_user_by_username(username)
+        if user is None:
+            return False
         if not user:
+            print("L'utilisateur n'existe pas")
             return False
 
-        hashed_password = Password.hash_password(password, access_key)
-        return hashed_password in user.get('password_hashes', [])
+        hashed_password = Password.hash_password(password)
+
+        if hashed_password in user.password_hashes :
+            return status
+
+        raise ValueError("Invalid username or password")
 
     def create_user(
         self,
@@ -61,24 +68,27 @@ class AuthService:
         Returns:
             Optional[str]: The generated password if creation succeeds, None otherwise.
         """
-        if self.storage.is_user_exist(username):
-            return None
+        user, status = self.storage.get_user_by_username(username)
+
+        if user is not None:
+            raise ValueError("Username already exists")
 
         password = Password.generate_password()
         hashed_password = Password.hash_password(password)
+        print(password)
 
         if status == "student":
-            user = Student(username, email, status, firstname, lastname)
+            user = Student(username=username, email=email, status=status, firstname=firstname, lastname=lastname)
         elif status == "teacher":
-            user = Teacher(firstname, lastname, username, email, status)
+            user = Teacher(username=username, email=email, status=status, firstname=firstname, lastname=lastname)
         elif status == "owner":
-            user = Owner(username, email, status, firstname, lastname)
+            user = Owner(username=username, email=email, status=status, firstname=firstname, lastname=lastname)
         else:
-            user = User(firstname, lastname, username, email)
+            user = User(firstname=firstname, lastname=lastname, username=username, email=email)
 
         user.password_hashes.append(hashed_password)
 
-        self.storage.save_user(user.id, user)
+        self.storage.create_user(user)
         return password
 
     def change_password(
@@ -105,3 +115,11 @@ class AuthService:
 
         self.storage.update_user(user)
         return True
+
+if __name__ == "__main__":
+    # Example usage
+    storage = storage_service.StorageService()
+    auth_service = AuthService(storage)
+
+    # Create a new user
+    password = auth_service.create_user("el-mousin", "Lucien", "Mousin", "el.mousin@lacatho.fr", "teacher")

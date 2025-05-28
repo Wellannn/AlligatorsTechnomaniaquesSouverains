@@ -31,7 +31,7 @@ class StorageService:
         """
         return self.get_user_by_username(username) is not None
 
-    def get_user_by_username(self, username: str) -> Optional[Dict[str, Any]]:
+    def get_user_by_username(self, username: str) -> (User, str):
         """
         Retrieves a user's data based on their username.
         Args:
@@ -40,6 +40,7 @@ class StorageService:
             Optional[Dict[str, Any]]: A dictionary of user data or None if not found.
         """
         return self.storage.get_user_by_username(username)
+
 
     def get_all_users(self) -> Dict[str, Any]:
         """
@@ -135,3 +136,4 @@ class StorageService:
             Optional[Dict[str, Any]]: The group data if found, otherwise None.
         """
         return self.storage.get_group_by_id(group.id)
+

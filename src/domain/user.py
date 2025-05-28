@@ -6,7 +6,7 @@ class User:
     Represents a user in the system.
     Each user has a unique identifier, username, first name, last name, email, and a list of password hashes for security.
     """
-    def __init__(self, firstname: str = "", lastname: str = "", username: str = "", email: str = "") -> None:
+    def __init__(self,firstname: str = "", lastname: str = "", username: str = "", email: str = "", id: str = "", passwords: list = []) -> None:
         """
         Initializes a new user with a unique identifier, username, first name, last name, email, and an empty list of password hashes.
         
@@ -19,10 +19,15 @@ class User:
         Returns:
             None
         """
-        self.id = str(uuid.uuid4())
+
+        if id == "" :
+            self.id = str(uuid.uuid4())
+        else :
+            self.id = id
+
         self.username = username
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
-        self.password_hashes = []
+        self.password_hashes = passwords
 

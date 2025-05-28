@@ -1,1 +1,40 @@
-{}
+{
+    "users": {
+        "a05640e4-567e-41ae-9d59-a0ffea563ff1": {
+            "id": "a05640e4-567e-41ae-9d59-a0ffea563ff1",
+            "username": "jdoe",
+            "firstname": "John",
+            "lastname": "Doe",
+            "email": "john.doe@lacatho.fr",
+            "password_hashes": [
+                "5fbb1ede7e581bc7a79d794c9942e14ce74686cb3663777790b00505ddc2c286"
+            ],
+            "status": "student"
+        },
+        "8455cda5-1602-45e6-a8d7-91d0fec8d14b": {
+            "id": "8455cda5-1602-45e6-a8d7-91d0fec8d14b",
+            "username": "el-mousin",
+            "firstname": "Lucien",
+            "lastname": "Mousin",
+            "email": "el.mousin@lacatho.fr",
+            "password_hashes": [
+                "ff475318d540dc92b0b90923057d991ffb16e9f696f6f5942e30d0f664f247a6"
+            ],
+            "status": "teacher"
+        }
+    },
+    "votes": {
+        "609f8428-b432-43d2-9663-6019d902dbb4": {
+            "id": "609f8428-b432-43d2-9663-6019d902dbb4",
+            "title": "un vote",
+            "group_size": 3,
+            "eligible_students": [],
+            "teachers": [
+                "el-mousin"
+            ],
+            "end_date": "2025-06-04T15:29:02.761625",
+            "reliability_score": 0.0,
+            "preferennces": {}
+        }
+    }
+}

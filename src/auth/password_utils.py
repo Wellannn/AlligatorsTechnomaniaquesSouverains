@@ -1,5 +1,4 @@
 import hashlib
-import hmac
 import secrets
 import string
 
@@ -11,20 +10,15 @@ class Password:
     ALLOWED_CHARS = string.ascii_letters + string.digits
 
     @staticmethod
-    def hash_password(password: str, access_key: str) -> str:
+    def hash_password(password: str) -> str:
         """
-        Hashes a password using HMAC with SHA-256 and a secret access key.
+        Hashes a password using SHA-256.
         Args:
             password (str): The password to hash.
-            access_key (str): The secret key used in HMAC.
         Returns:
-            str: The hexadecimal HMAC-SHA-256 hash of the password.
+            str: The hexadecimal SHA-256 hash of the password.
         """
-        return hmac.new(
-            key=access_key.encode('utf-8'),
-            msg=password.encode('utf-8'),
-            digestmod=hashlib.sha256
-        ).hexdigest()
+        return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
     @staticmethod
     def generate_password(length: int = 12) -> str:
