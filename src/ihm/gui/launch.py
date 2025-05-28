@@ -1,4 +1,11 @@
 from src.ihm.gui.main_window import MainWindow
 
-if __name__ == "__main__":
+
+def launch():
+    """Launch the main window of the application."""
     MainWindow().run()
+
+
+if __name__ == "__main__":
+    launch()
+    
