@@ -1,9 +1,9 @@
-import unittest
 import os
-from datetime import datetime
-from src.storage.storage_json import StorageJSON
+import unittest
+
 from src.domain.student import Student
-from src.domain.vote import Vote
+from src.storage.storage_json import StorageJSON
+
 
 class TestStorageJSON(unittest.TestCase):
     def setUp(self):
