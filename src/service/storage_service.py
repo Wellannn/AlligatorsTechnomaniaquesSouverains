@@ -49,6 +49,15 @@ class StorageService:
             Dict[str, Any]: A dictionary of all users with user IDs as keys.
         """
         return self.storage.get_users()
+    
+    def get_all_users_by_role(self, role: str):
+        """
+        Retrieves all users filtered by their role.
+        Args:
+            role (str): The role to filter users by (e.g., "student", "teacher", "owner").
+        Returns:
+        """
+        return self.storage.get_users_by_role(role)
 
     def create_user(self, user: User) -> None:
         """

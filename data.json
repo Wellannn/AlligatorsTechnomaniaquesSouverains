@@ -361,6 +361,22 @@
                     "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5": 0
                 }
             }
+        },
+        "ce96311e-b696-4b36-a6a2-10d45a98c252": {
+            "id": "ce96311e-b696-4b36-a6a2-10d45a98c252",
+            "title": "Vote from jdoe to student22",
+            "group_size": 1,
+            "eligible_students": [
+                "student22"
+            ],
+            "teachers": [],
+            "end_date": "2099-01-01T00:00:00",
+            "reliability_score": 0.0,
+            "preferennces": {
+                "jdoe": {
+                    "student22": 1
+                }
+            }
         }
     }
 }

@@ -56,6 +56,19 @@ class StorageJSON:
             Dict[str, Any]: A dictionary of user IDs mapped to their data.
         """
         return self._get_category('users')
+    
+    def get_users_by_role(self, role: str) -> Dict[str, Any]:
+        """
+        Returns all stored users filtered by their role.
+        Args:
+            role (str): The role to filter users by (e.g., "student", "teacher", "owner").
+        Returns:
+            Dict[str, Any]: A dictionary of user IDs mapped to their data for the specified role.
+        """
+        users = self._get_category('users')
+        return [
+            user for user in users.values() if user["status"] == role
+        ]
 
     def save_vote(self, vote_id: str, vote_data: Any) -> None:
         """
