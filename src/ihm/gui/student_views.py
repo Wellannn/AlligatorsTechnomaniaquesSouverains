@@ -78,25 +78,29 @@ class StudentViews:
                 var.set(max_value)
 
     def submit_votes(self):
-        any_vote = False
+        vote = self.main_window.storage_service.get_vote_by_title("les groupes de travail")
+        if not vote:
+            messagebox.showerror("Error", "Vote not found.")
+            return
+
+        vote_dict = vote.to_dict() if hasattr(vote, "to_dict") else vars(vote)
+
+        prefs = {}
         for student_username, (var, _) in self.votes_data.items():
             weight = var.get()
             if weight > 0:
-                vote = Vote(
-                    title=f"Vote from {self.username} to {student_username}",
-                    group_size=1,
-                    eligible_students=[student_username],
-                    teachers=[],
-                    end_date=datetime(2099, 1, 1),
-                    preference={self.username: {student_username: weight}}
-                )
-                self.main_window.storage_service.create_vote(vote)
-                any_vote = True
+                prefs[student_username] = weight
 
-        if any_vote:
-            messagebox.showinfo("Success", "Votes submitted successfully!")
-        else:
+        if not prefs:
             messagebox.showwarning("Warning", "You must assign at least one point.")
+            return
+
+        vote_dict["preferennces"][self.username] = prefs
+
+        self.main_window.storage_service.update_vote_preferences(vote_dict["id"], vote_dict["preferennces"])
+
+        messagebox.showinfo("Success", "Votes submitted successfully!")
+
 
     def load_groups(self):
         self.groups_text.config(state=tk.NORMAL)
