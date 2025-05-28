@@ -4,43 +4,45 @@ from src.domain.user import User
 
 class Clustering:
     """
-    Clustering class to handle user clustering based on preferences.
-    This class provides methods to build an affinity matrix, score groups, and cluster users into balanced groups.
+    Clustering class to handle user clustering based on weighted preferences.
+    Each user assigns a numeric score to other users, indicating preference strength.
     """
-    
+
     @staticmethod
-    def __build_affinity_matrix(preferences: dict[User, list[User]]) -> tuple[np.ndarray, list[User]]:
+    def __build_affinity_matrix(preferences: dict[User, dict[User, int]]) -> tuple[np.ndarray, list[User]]:
         """
-        Builds an affinity matrix from user preferences, where each entry represents the affinity score between two users.
+        Builds an affinity matrix from weighted user preferences.
+        Each element (i, j) in the matrix represents the score given by user i to user j.
         Args:
-            preferences (dict[User, list[User]]): A dictionary where keys are User objects and values are lists of preferred User objects.
+            preferences (dict[User, dict[User, int]]): 
+                A dictionary where each key is a User, and the value is a dict of other Users
+                associated with a numeric weight indicating preference strength.
         Returns:
-            tuple[np.ndarray, list[User]]: A tuple containing the affinity matrix and a list of users.
+            tuple[np.ndarray, list[User]]: 
+                A square affinity matrix and the corresponding list of users (row/column indices).
         """
         users = list(preferences.keys())
         size = len(users)
         matrix = np.zeros((size, size), dtype=int)
 
         for i, user in enumerate(users):
-            prefs = preferences.get(user, [])
-            max_points = len(prefs)
-            for rank, preferred in enumerate(prefs):
+            prefs = preferences.get(user, {})
+            for preferred, score in prefs.items():
                 if preferred in users:
                     j = users.index(preferred)
-                    weight = max_points - rank
-                    matrix[i][j] = weight
+                    matrix[i][j] = score
 
         return matrix, users
 
     @staticmethod
     def __score_group(group_indices: list[int], matrix: np.ndarray) -> int:
         """
-        Computes the affinity score for a group of users based on their indices in the affinity matrix.
+        Computes the affinity score of a group as the sum of all mutual preferences within the group.
         Args:
-            group_indices (list[int]): A list of indices representing the users in the group.
+            group_indices (list[int]): List of indices of users in the group.
             matrix (np.ndarray): The affinity matrix.
         Returns:
-            int: The total affinity score for the group.
+            int: Total mutual affinity score within the group.
         """
         score = 0
         used_pairs = set()
@@ -54,14 +56,14 @@ class Clustering:
     @staticmethod
     def __compute_balanced_group_sizes(total: int, group_size: int) -> list[int]:
         """
-        Computes balanced group sizes based on the total number of users and the desired group size.
+        Computes a list of group sizes that divide the total number of users as evenly as possible.
         Args:
             total (int): Total number of users.
-            group_size (int): Desired size of each group.
+            group_size (int): Desired maximum size per group.
         Returns:
-            list[int]: A list of group sizes that balances the total number of users.
+            list[int]: List of group sizes that sum to total.
         Raises:
-            ValueError: If it is impossible to distribute users fairly without a 1-sized group.
+            ValueError: If no fair division is possible without creating a group of size 1.
         """
         for r in range(group_size):
             g = (total - r * (group_size - 1)) // group_size
@@ -72,39 +74,39 @@ class Clustering:
     @staticmethod
     def __compute_affinity_score(i: int, ungrouped: set[int], matrix: np.ndarray) -> int:
         """
-        Computes the affinity score for a user based on their connections to ungrouped users.
+        Computes how well a user connects (via preference scores) to the ungrouped population.
         Args:
-            i (int): Index of the user in the affinity matrix.
-            ungrouped (set[int]): Set of indices of users that are not yet grouped.
+            i (int): Index of the user.
+            ungrouped (set[int]): Indices of ungrouped users.
             matrix (np.ndarray): The affinity matrix.
         Returns:
-            int: The total affinity score for the user with respect to the ungrouped users.
+            int: Total bidirectional affinity score with ungrouped users.
         """
         return sum(matrix[i][j] + matrix[j][i] for j in ungrouped if j != i)
 
     @staticmethod
     def __find_best_leader(ungrouped: set[int], matrix: np.ndarray) -> int:
         """
-        Finds the best leader from the ungrouped users based on their affinity scores.
+        Selects the user who is best connected to others (highest affinity sum) as group leader.
         Args:
-            ungrouped (set[int]): Set of indices of users that are not yet grouped.
+            ungrouped (set[int]): Indices of users not yet grouped.
             matrix (np.ndarray): The affinity matrix.
         Returns:
-            int: The index of the user who has the highest affinity score with respect to the ungrouped users.
+            int: Index of the most connected user among ungrouped ones.
         """
         return max(ungrouped, key=lambda i: Clustering.__compute_affinity_score(i, ungrouped, matrix))
 
     @staticmethod
     def __find_best_partners(leader_index: int, ungrouped: set[int], matrix: np.ndarray, num_partners: int) -> list[int]:
         """
-        Finds the best partners for a leader based on their affinity scores with respect to the ungrouped users.
+        Selects the best `num_partners` users to group with a given leader based on mutual scores.
         Args:
-            leader_index (int): Index of the leader in the affinity matrix.
-            ungrouped (set[int]): Set of indices of users that are not yet grouped.
+            leader_index (int): Index of the leader user.
+            ungrouped (set[int]): Indices of ungrouped users.
             matrix (np.ndarray): The affinity matrix.
-            num_partners (int): Number of partners to select for the group.
+            num_partners (int): Number of partners to select.
         Returns:
-            list[int]: A list of indices of the best partners for the leader.
+            list[int]: Indices of selected partner users.
         """
         scores = [
             (j, matrix[leader_index][j] + matrix[j][leader_index])
@@ -116,33 +118,38 @@ class Clustering:
     @staticmethod
     def __form_group(leader: int, partners: list[int]) -> list[int]:
         """
-        Forms a group by combining the leader with their partners.
+        Forms a group from a leader and their selected partners.
         Args:
-            leader (int): Index of the leader in the affinity matrix.
-            partners (list[int]): List of indices of partners to be included in the group.
+            leader (int): Index of the leader.
+            partners (list[int]): List of partner indices.
         Returns:
-            list[int]: A list containing the index of the leader followed by the indices of the partners.
+            list[int]: Complete list of indices forming the group.
         """
         return [leader] + partners
 
     @staticmethod
-    def __cluster_users_greedy_balanced(preferences: dict[User, list[User]], group_size: int) -> list[list[User]]:
+    def __cluster_users_greedy_balanced(preferences: dict[User, dict[User, int]], group_size: int) -> list[list[User]]:
         """
-        Clusters users into balanced groups based on their preferences using a greedy approach.
+        Clusters users into balanced groups using a greedy algorithm based on preference weights.
         Args:
-            preferences (dict[User, list[User]]): A dictionary where keys are User objects and values are lists of preferred User objects.
-            group_size (int): Desired size of each group.
+            preferences (dict[User, dict[User, int]]): User preference weights toward others.
+            group_size (int): Target group size.
         Returns:
-            list[list[User]]: A list of groups, where each group is a list of User objects.
+            list[list[User]]: List of groups with users.
         """
         matrix, user_list = Clustering.__build_affinity_matrix(preferences)
         total_users = len(user_list)
-        group_sizes = Clustering.__compute_balanced_group_sizes(total_users, group_size)
 
+        if total_users == 0:
+            return []
+
+        group_sizes = Clustering.__compute_balanced_group_sizes(total_users, group_size)
         ungrouped = set(range(total_users))
         groups = []
 
         for size in group_sizes:
+            if not ungrouped:
+                break
             leader = Clustering.__find_best_leader(ungrouped, matrix)
             partners = Clustering.__find_best_partners(leader, ungrouped, matrix, size - 1)
             group_indices = Clustering.__form_group(leader, partners)
@@ -153,14 +160,14 @@ class Clustering:
         return groups
 
     @staticmethod
-    def cluster(preferences: dict[User, list[User]], group_size: int) -> tuple[list[list[User]], int]:
+    def cluster(preferences: dict[User, dict[User, int]], group_size: int) -> tuple[list[list[User]], int]:
         """
-        Clusters users into balanced groups based on their preferences and computes the total affinity score for the groups.
+        Public method to perform clustering and return total affinity score.
         Args:
-            preferences (dict[User, list[User]]): A dictionary where keys are User objects and values are lists of preferred User objects.
-            group_size (int): Desired size of each group.
+            preferences (dict[User, dict[User, int]]): User-to-user affinity weights.
+            group_size (int): Desired number of users per group.
         Returns:
-            tuple[list[list[User]], int]: A tuple containing a list of groups (each group is a list of User objects) and the total affinity score for all groups.
+            tuple[list[list[User]], int]: Final grouped users and total affinity score.
         """
         groups = Clustering.__cluster_users_greedy_balanced(preferences, group_size)
         matrix, user_list = Clustering.__build_affinity_matrix(preferences)
