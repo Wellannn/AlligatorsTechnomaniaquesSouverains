@@ -3,6 +3,11 @@ import json
 from typing import Any, Dict, Optional
 from datetime import datetime
 
+from src.domain.owner import Owner
+from src.domain.student import Student
+from src.domain.teacher import Teacher
+from src.domain.user import User
+
 
 class StorageJSON:
     """
@@ -51,6 +56,19 @@ class StorageJSON:
             Dict[str, Any]: A dictionary of user IDs mapped to their data.
         """
         return self._get_category('users')
+    
+    def get_users_by_role(self, role: str) -> Dict[str, Any]:
+        """
+        Returns all stored users filtered by their role.
+        Args:
+            role (str): The role to filter users by (e.g., "student", "teacher", "owner").
+        Returns:
+            Dict[str, Any]: A dictionary of user IDs mapped to their data for the specified role.
+        """
+        users = self._get_category('users')
+        return [
+            user for user in users.values() if user["status"] == role
+        ]
 
     def save_vote(self, vote_id: str, vote_data: Any) -> None:
         """
@@ -99,19 +117,26 @@ class StorageJSON:
         """
         return self.get_groups().get(group_id)
 
-    def get_user_by_username(self, username: str) -> Optional[Dict[str, Any]]:
+    def get_user_by_username(self, username: str) -> (User, str):
         """
         Returns a user by username, or None if not found.
         Args:
             username (str): The username of the user to find.
         Returns:
-            Optional[Dict[str, Any]]: The user data if found, otherwise None.
+            User: The user if found, otherwise None.
         """
         users = self.get_users()
+        valid_user = None
         for user in users.values():
-            if user.get('username') == username:
-                return user
-        return None
+            if user['username'] == username:
+                if user["status"] == 'student':
+                    valid_user = Student(firstname=user["firstname"], lastname=user["lastname"], username=user["username"], email=user["email"], status=user["status"], id=user["id"], passwords=user["password_hashes"])
+                elif user["status"] == 'teacher':
+                    valid_user = Teacher(firstname=user["firstname"], lastname=user["lastname"], username=user["username"], email=user["email"], status=user["status"], id=user["id"], passwords=user["password_hashes"])
+                elif user["status"] == 'owner':
+                    valid_user = Owner(firstname=user["firstname"], lastname=user["lastname"], username=user["username"], email=user["email"], status=user["status"], id=user["id"],  passwords=user["password_hashes"])
+                return (valid_user, valid_user.status)
+        return (None, None)
 
     def _get_category(self, category: str) -> Dict[str, Any]:
         """
@@ -215,3 +240,11 @@ class StorageJSON:
         if category in data and entry_id in data[category]:
             del data[category][entry_id]
             self._write(data)
+
+
+
+if __name__ == "__main__":
+    # Example usage
+    storage = StorageJSON('data.json')
+
+    user =  storage.get_user_by_username('jdoe')

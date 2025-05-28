@@ -7,7 +7,7 @@ class Student(User):
     Inherits from User and includes an additional status attribute.
     """
     
-    def __init__(self, username: str, email: str, status: str, firstname: str = "", lastname: str = "") -> None:
+    def __init__(self, username: str, email: str, status: str, firstname: str = "", lastname: str = "", id: str ="", passwords: list = []) -> None:
         """
         Initializes a new student with a username, email, status, and optional first and last names.
         Args:
@@ -19,5 +19,5 @@ class Student(User):
         Returns:
             None
         """
-        super().__init__(firstname, lastname, username, email)
+        super().__init__(firstname, lastname, username, email, id, passwords)
         self.status = status

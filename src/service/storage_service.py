@@ -29,9 +29,9 @@ class StorageService:
         Returns:
             bool: True if the user exists, False otherwise.
         """
-        return self.get_user(username) is not None
+        return self.get_user_by_username(username) is not None
 
-    def get_user(self, username: str) -> Optional[Dict[str, Any]]:
+    def get_user_by_username(self, username: str) -> (User, str):
         """
         Retrieves a user's data based on their username.
         Args:
@@ -41,6 +41,7 @@ class StorageService:
         """
         return self.storage.get_user_by_username(username)
 
+
     def get_all_users(self) -> Dict[str, Any]:
         """
         Retrieves all users from storage.
@@ -48,6 +49,15 @@ class StorageService:
             Dict[str, Any]: A dictionary of all users with user IDs as keys.
         """
         return self.storage.get_users()
+    
+    def get_all_users_by_role(self, role: str):
+        """
+        Retrieves all users filtered by their role.
+        Args:
+            role (str): The role to filter users by (e.g., "student", "teacher", "owner").
+        Returns:
+        """
+        return self.storage.get_users_by_role(role)
 
     def create_user(self, user: User) -> None:
         """
@@ -118,6 +128,7 @@ class StorageService:
         """
         self.storage.delete_vote(vote_id)
 
+
     def save_generated_group(self, groups: Group) -> None:
         """
         Saves the generated groups for a vote.
@@ -135,3 +146,4 @@ class StorageService:
             Optional[Dict[str, Any]]: The group data if found, otherwise None.
         """
         return self.storage.get_group_by_id(group.id)
+

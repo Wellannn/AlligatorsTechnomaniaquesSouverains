@@ -17,22 +17,21 @@ class LoginView:
         ttk.Label(frame, text="Password:").pack()
         self.password_var = tk.StringVar()
         ttk.Entry(frame, textvariable=self.password_var, show="*").pack(pady=5)
-        
+
         ttk.Button(frame, text="Login", command=self.login).pack(pady=20)
-    
+
     def login(self):
         username = self.username_var.get()
         password = self.password_var.get()
-        
-        if self.main_window.auth_service.login_user(username, password):
-            user = self.main_window.storage_service.get_user(username)
-            status = user.get('status', 'student')
-            
-            if status == "owner":
-                self.main_window.show_owner_views(username)
-            elif status == "teacher":
-                self.main_window.show_teacher_views(username)
-            else:
-                self.main_window.show_student_views(username)
-        else:
+
+        status = self.main_window.auth_service.login_user(username, password)
+        if not status or status == "None":
             messagebox.showerror("Error", "Invalid login")
+            raise ValueError("Invalid username or password")
+
+        if status == "owner":
+            self.main_window.show_owner_views(username)
+        elif status == "teacher":
+            self.main_window.show_teacher_views(username)
+        else:
+            self.main_window.show_student_views(username)

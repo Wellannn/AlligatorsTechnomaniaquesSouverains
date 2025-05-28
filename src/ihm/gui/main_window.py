@@ -2,12 +2,15 @@ import tkinter as tk
 from src.ihm.gui.login_view import LoginView
 from src.service.auth_service import AuthService
 from src.service.storage_service import StorageService
+from src.ihm.gui.student_views import StudentViews
+from src.ihm.gui.owner_views import OwnerViews
+from src.ihm.gui.teacher_views import TeacherViews
 from src.storage.storage_json import StorageJSON
 
 class MainWindow:
     def __init__(self):
         self.storage_service = StorageService()
-        self.auth_service = AuthService(StorageJSON("data.json"))
+        self.auth_service = AuthService(storage=self.storage_service)
         
         self.root = tk.Tk()
         self.root.title("Clustering de Camarades")
@@ -24,17 +27,14 @@ class MainWindow:
     
     def show_student_views(self, username):
         self.clear()
-        from student_views import StudentViews
         StudentViews(self.root, self, username)
     
     def show_teacher_views(self, username):
         self.clear()
-        from teacher_views import TeacherViews
         TeacherViews(self.root, self, username)
     
     def show_owner_views(self, username):
         self.clear()
-        from owner_views import OwnerViews
         OwnerViews(self.root, self, username)
     
     def run(self):
