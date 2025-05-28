@@ -11,6 +11,259 @@
             ],
             "status": "student"
         },
+        "c1b8f8e1-1a59-4c1e-b7f8-1f1e8d1f01a1": {
+            "id": "c1b8f8e1-1a59-4c1e-b7f8-1f1e8d1f01a1",
+            "username": "student01",
+            "firstname": "Student01",
+            "lastname": "Student01",
+            "email": "student01@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "e2d2a6b2-2b2a-4e2b-9c1a-2e2b2c1f02a2": {
+            "id": "e2d2a6b2-2b2a-4e2b-9c1a-2e2b2c1f02a2",
+            "username": "student02",
+            "firstname": "Student02",
+            "lastname": "Student02",
+            "email": "student02@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "f3c3b7c3-3c3b-4f3c-8d2b-3f3c3d2f03a3": {
+            "id": "f3c3b7c3-3c3b-4f3c-8d2b-3f3c3d2f03a3",
+            "username": "student03",
+            "firstname": "Student03",
+            "lastname": "Student03",
+            "email": "student03@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "a4d4c8d4-4d4c-4a4d-9e3c-4a4d4e3f04a4": {
+            "id": "a4d4c8d4-4d4c-4a4d-9e3c-4a4d4e3f04a4",
+            "username": "student04",
+            "firstname": "Student04",
+            "lastname": "Student04",
+            "email": "student04@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5": {
+            "id": "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5",
+            "username": "student05",
+            "firstname": "Student05",
+            "lastname": "Student05",
+            "email": "student05@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "c6f6eaf6-6f6e-4c6f-b05e-6c6f6g5h06a6": {
+            "id": "c6f6eaf6-6f6e-4c6f-b05e-6c6f6g5h06a6",
+            "username": "student06",
+            "firstname": "Student06",
+            "lastname": "Student06",
+            "email": "student06@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "d7a7fb07-7a7f-4d7a-c16f-7d7a7h6i07a7": {
+            "id": "d7a7fb07-7a7f-4d7a-c16f-7d7a7h6i07a7",
+            "username": "student07",
+            "firstname": "Student07",
+            "lastname": "Student07",
+            "email": "student07@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "e8b80c18-8b8c-4e8b-d27a-8e8b8i7j08a8": {
+            "id": "e8b80c18-8b8c-4e8b-d27a-8e8b8i7j08a8",
+            "username": "student08",
+            "firstname": "Student08",
+            "lastname": "Student08",
+            "email": "student08@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "f9c91d29-9c9d-4f9c-e38b-9f9c9j8k09a9": {
+            "id": "f9c91d29-9c9d-4f9c-e38b-9f9c9j8k09a9",
+            "username": "student09",
+            "firstname": "Student09",
+            "lastname": "Student09",
+            "email": "student09@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "0ad02e3a-0a0e-40a0-f49c-0a0d0k9l10a0": {
+            "id": "0ad02e3a-0a0e-40a0-f49c-0a0d0k9l10a0",
+            "username": "student10",
+            "firstname": "Student10",
+            "lastname": "Student10",
+            "email": "student10@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "1be13f4b-1b1f-41b1-05ad-1b1e1l0m11a1": {
+            "id": "1be13f4b-1b1f-41b1-05ad-1b1e1l0m11a1",
+            "username": "student11",
+            "firstname": "Student11",
+            "lastname": "Student11",
+            "email": "student11@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "2cf2505c-2c2f-42c2-16be-2c2f2m1n12a2": {
+            "id": "2cf2505c-2c2f-42c2-16be-2c2f2m1n12a2",
+            "username": "student12",
+            "firstname": "Student12",
+            "lastname": "Student12",
+            "email": "student12@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "3df3616d-3d3f-43d3-27cf-3d3f3n2o13a3": {
+            "id": "3df3616d-3d3f-43d3-27cf-3d3f3n2o13a3",
+            "username": "student13",
+            "firstname": "Student13",
+            "lastname": "Student13",
+            "email": "student13@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "4ef4727e-4e4f-44e4-38d0-4e4f4o3p14a4": {
+            "id": "4ef4727e-4e4f-44e4-38d0-4e4f4o3p14a4",
+            "username": "student14",
+            "firstname": "Student14",
+            "lastname": "Student14",
+            "email": "student14@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "5ff5838f-5f5f-45f5-49e1-5f5f5p4q15a5": {
+            "id": "5ff5838f-5f5f-45f5-49e1-5f5f5p4q15a5",
+            "username": "student15",
+            "firstname": "Student15",
+            "lastname": "Student15",
+            "email": "student15@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "6g061490-6g6f-46g6-5af2-6g6f6q5r16a6": {
+            "id": "6g061490-6g6f-46g6-5af2-6g6f6q5r16a6",
+            "username": "student16",
+            "firstname": "Student16",
+            "lastname": "Student16",
+            "email": "student16@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "7h1725a1-7h7g-47h7-6bg3-7h7g7r6s17a7": {
+            "id": "7h1725a1-7h7g-47h7-6bg3-7h7g7r6s17a7",
+            "username": "student17",
+            "firstname": "Student17",
+            "lastname": "Student17",
+            "email": "student17@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "8i2836b2-8i8h-48i8-7ch4-8i8h8s7t18a8": {
+            "id": "8i2836b2-8i8h-48i8-7ch4-8i8h8s7t18a8",
+            "username": "student18",
+            "firstname": "Student18",
+            "lastname": "Student18",
+            "email": "student18@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "9j3947c3-9j9i-49j9-8di5-9j9i9t8u19a9": {
+            "id": "9j3947c3-9j9i-49j9-8di5-9j9i9t8u19a9",
+            "username": "student19",
+            "firstname": "Student19",
+            "lastname": "Student19",
+            "email": "student19@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "0k4a58d4-0k0j-40k0-9ej6-0k0j0u9v20a0": {
+            "id": "0k4a58d4-0k0j-40k0-9ej6-0k0j0u9v20a0",
+            "username": "student20",
+            "firstname": "Student20",
+            "lastname": "Student20",
+            "email": "student20@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "1l5b69e5-1l1k-41l1-0fk7-1l1k1v0w21a1": {
+            "id": "1l5b69e5-1l1k-41l1-0fk7-1l1k1v0w21a1",
+            "username": "student21",
+            "firstname": "Student21",
+            "lastname": "Student21",
+            "email": "student21@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "2m6c7af6-2m2l-42m2-1gl8-2m2l2w1x22a2": {
+            "id": "2m6c7af6-2m2l-42m2-1gl8-2m2l2w1x22a2",
+            "username": "student22",
+            "firstname": "Student22",
+            "lastname": "Student22",
+            "email": "student22@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
+        "3n7d8b07-3n3m-43n3-2hm9-3n3m3x2y23a3": {
+            "id": "3n7d8b07-3n3m-43n3-2hm9-3n3m3x2y23a3",
+            "username": "student23",
+            "firstname": "Student23",
+            "lastname": "Student23",
+            "email": "student23@lacatho.fr",
+            "password_hashes": [
+                "d41d8cd98f00b204e9800998ecf8427e"
+            ],
+            "status": "student"
+        },
         "8455cda5-1602-45e6-a8d7-91d0fec8d14b": {
             "id": "8455cda5-1602-45e6-a8d7-91d0fec8d14b",
             "username": "el-mousin",
@@ -24,17 +277,90 @@
         }
     },
     "votes": {
-        "609f8428-b432-43d2-9663-6019d902dbb4": {
-            "id": "609f8428-b432-43d2-9663-6019d902dbb4",
-            "title": "un vote",
+        "2b4ed941-e842-4295-8492-2a2692d34660": {
+            "id": "2b4ed941-e842-4295-8492-2a2692d34660",
+            "title": "gros baiseur",
             "group_size": 3,
-            "eligible_students": [],
-            "teachers": [
-                "el-mousin"
+            "eligible_students": [
+                "a05640e4-567e-41ae-9d59-a0ffea563ff1",
+                "c1b8f8e1-1a59-4c1e-b7f8-1f1e8d1f01a1",
+                "e2d2a6b2-2b2a-4e2b-9c1a-2e2b2c1f02a2",
+                "f3c3b7c3-3c3b-4f3c-8d2b-3f3c3d2f03a3",
+                "a4d4c8d4-4d4c-4a4d-9e3c-4a4d4e3f04a4",
+                "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5",
+                "c6f6eaf6-6f6e-4c6f-b05e-6c6f6g5h06a6"
             ],
-            "end_date": "2025-06-04T15:29:02.761625",
+            "teachers": {
+                "id": "8455cda5-1602-45e6-a8d7-91d0fec8d14b",
+                "username": "el-mousin",
+                "firstname": "Lucien",
+                "lastname": "Mousin",
+                "email": "el.mousin@lacatho.fr",
+                "password_hashes": [
+                    "ff475318d540dc92b0b90923057d991ffb16e9f696f6f5942e30d0f664f247a6"
+                ],
+                "status": "teacher"
+            },
+            "end_date": "2025-06-01T00:00:00",
             "reliability_score": 0.0,
-            "preferennces": {}
+            "preferennces": {
+                "a05640e4-567e-41ae-9d59-a0ffea563ff1": {
+                    "c1b8f8e1-1a59-4c1e-b7f8-1f1e8d1f01a1": 0,
+                    "e2d2a6b2-2b2a-4e2b-9c1a-2e2b2c1f02a2": 0,
+                    "f3c3b7c3-3c3b-4f3c-8d2b-3f3c3d2f03a3": 0,
+                    "a4d4c8d4-4d4c-4a4d-9e3c-4a4d4e3f04a4": 0,
+                    "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5": 0,
+                    "c6f6eaf6-6f6e-4c6f-b05e-6c6f6g5h06a6": 0
+                },
+                "c1b8f8e1-1a59-4c1e-b7f8-1f1e8d1f01a1": {
+                    "a05640e4-567e-41ae-9d59-a0ffea563ff1": 0,
+                    "e2d2a6b2-2b2a-4e2b-9c1a-2e2b2c1f02a2": 0,
+                    "f3c3b7c3-3c3b-4f3c-8d2b-3f3c3d2f03a3": 0,
+                    "a4d4c8d4-4d4c-4a4d-9e3c-4a4d4e3f04a4": 0,
+                    "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5": 0,
+                    "c6f6eaf6-6f6e-4c6f-b05e-6c6f6g5h06a6": 0
+                },
+                "e2d2a6b2-2b2a-4e2b-9c1a-2e2b2c1f02a2": {
+                    "a05640e4-567e-41ae-9d59-a0ffea563ff1": 0,
+                    "c1b8f8e1-1a59-4c1e-b7f8-1f1e8d1f01a1": 0,
+                    "f3c3b7c3-3c3b-4f3c-8d2b-3f3c3d2f03a3": 0,
+                    "a4d4c8d4-4d4c-4a4d-9e3c-4a4d4e3f04a4": 0,
+                    "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5": 0,
+                    "c6f6eaf6-6f6e-4c6f-b05e-6c6f6g5h06a6": 0
+                },
+                "f3c3b7c3-3c3b-4f3c-8d2b-3f3c3d2f03a3": {
+                    "a05640e4-567e-41ae-9d59-a0ffea563ff1": 0,
+                    "c1b8f8e1-1a59-4c1e-b7f8-1f1e8d1f01a1": 0,
+                    "e2d2a6b2-2b2a-4e2b-9c1a-2e2b2c1f02a2": 0,
+                    "a4d4c8d4-4d4c-4a4d-9e3c-4a4d4e3f04a4": 0,
+                    "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5": 0,
+                    "c6f6eaf6-6f6e-4c6f-b05e-6c6f6g5h06a6": 0
+                },
+                "a4d4c8d4-4d4c-4a4d-9e3c-4a4d4e3f04a4": {
+                    "a05640e4-567e-41ae-9d59-a0ffea563ff1": 0,
+                    "c1b8f8e1-1a59-4c1e-b7f8-1f1e8d1f01a1": 0,
+                    "e2d2a6b2-2b2a-4e2b-9c1a-2e2b2c1f02a2": 0,
+                    "f3c3b7c3-3c3b-4f3c-8d2b-3f3c3d2f03a3": 0,
+                    "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5": 0,
+                    "c6f6eaf6-6f6e-4c6f-b05e-6c6f6g5h06a6": 0
+                },
+                "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5": {
+                    "a05640e4-567e-41ae-9d59-a0ffea563ff1": 0,
+                    "c1b8f8e1-1a59-4c1e-b7f8-1f1e8d1f01a1": 0,
+                    "e2d2a6b2-2b2a-4e2b-9c1a-2e2b2c1f02a2": 0,
+                    "f3c3b7c3-3c3b-4f3c-8d2b-3f3c3d2f03a3": 0,
+                    "a4d4c8d4-4d4c-4a4d-9e3c-4a4d4e3f04a4": 0,
+                    "c6f6eaf6-6f6e-4c6f-b05e-6c6f6g5h06a6": 0
+                },
+                "c6f6eaf6-6f6e-4c6f-b05e-6c6f6g5h06a6": {
+                    "a05640e4-567e-41ae-9d59-a0ffea563ff1": 0,
+                    "c1b8f8e1-1a59-4c1e-b7f8-1f1e8d1f01a1": 0,
+                    "e2d2a6b2-2b2a-4e2b-9c1a-2e2b2c1f02a2": 0,
+                    "f3c3b7c3-3c3b-4f3c-8d2b-3f3c3d2f03a3": 0,
+                    "a4d4c8d4-4d4c-4a4d-9e3c-4a4d4e3f04a4": 0,
+                    "b5e5d9e5-5e5d-4b5e-af4d-5b5e5f4g05a5": 0
+                }
+            }
         }
     }
 }

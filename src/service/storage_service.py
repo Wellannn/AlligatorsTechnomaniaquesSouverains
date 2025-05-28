@@ -119,6 +119,7 @@ class StorageService:
         """
         self.storage.delete_vote(vote_id)
 
+
     def save_generated_group(self, groups: Group) -> None:
         """
         Saves the generated groups for a vote.
