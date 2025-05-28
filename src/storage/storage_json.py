@@ -80,3 +80,9 @@ class StorageJSON:
         if category in data and entry_id in data[category]:
             del data[category][entry_id]
             self._write(data)
+
+    def save_group(self, group_id, group_data):
+        self._save_entry('groups', group_id, group_data)
+
+    def delete_group(self, group_id):
+        self._delete_entry('groups', group_id)
