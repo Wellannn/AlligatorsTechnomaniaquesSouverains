@@ -90,6 +90,17 @@ class StorageService:
             vote (Vote): The vote object to store.
         """
         self.storage.save_vote(vote.id, vote.__dict__)
+        
+    def update_vote_preferences(self, vote_id: str, new_preferences: dict):
+        if vote_id in self.votes:
+            self.votes[vote_id].preferennces = new_preferences
+            self.save_votes()
+            
+    def get_vote_by_title(self, title: str):
+        for vote in self.votes.values():
+            if vote.title == title:
+                return vote
+        return None
 
     def get_vote(self, vote_id: str) -> Optional[Dict[str, Any]]:
         """
