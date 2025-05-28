@@ -9,7 +9,7 @@ class TestStorageJSON(unittest.TestCase):
     def setUp(self):
         self.test_file = 'test_data.json'
         self.storage = StorageJSON(self.test_file)
-        self.storage._write({})  # Reset file for isolation
+        self.storage._write({})
 
     def tearDown(self):
         if os.path.exists(self.test_file):
@@ -26,7 +26,6 @@ class TestStorageJSON(unittest.TestCase):
         self.assertNotIn(student.id, users_after_delete)
 
     def test_delete_user_nonexistent(self):
-        # Should not raise an error
         try:
             self.storage.delete_user("nonexistent-id")
         except Exception as e:
@@ -35,7 +34,6 @@ class TestStorageJSON(unittest.TestCase):
     def test_read_invalid_json(self):
         with open(self.test_file, 'w') as f:
             f.write('INVALID JSON')
-        # Le fichier doit être réinitialisé sans exception
         storage = StorageJSON(self.test_file)
         data = storage._read()
         self.assertEqual(data, {})
